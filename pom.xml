@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>mygroup</groupId>
+    <artifactId>app</artifactId>
+    <version>1.0</version>
+    <packaging>war</packaging>
+    <name>${project.artifactId}</name>
+    <description>A simple project with war packaging that depends on JSF and
+        javaee, in that order.</description>
+    <url>http://jsf-spec.java.net/</url>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                  <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <!-- or if you want to use tomcat 6.x
+                <artifactId>tomcat6-maven-plugin</artifactId>
+                -->
+                <version>2.2</version>
+                <configuration>
+                    <!-- http port -->
+                    <port>9090</port>
+                    <!-- application path always starts with /-->
+                    <path>/</path>
+                    <!-- optional path to a context file -->
+                    <!--<contextFile>${tomcatContextXml}</contextFile>-->
+                    <!-- optional system propoerties you want to add -->
+                    <systemProperties>
+                        <appserver.base>${project.build.directory}/appserver-base</appserver.base>
+                        <appserver.home>${project.build.directory}/appserver-home</appserver.home>
+                        <derby.system.home>${project.build.directory}/appserver-base/logs</derby.system.home>
+                        <java.io.tmpdir>${project.build.directory}</java.io.tmpdir>
+                    </systemProperties>
+                    <!-- if you want to use test dependencies rather than only runtime -->
+                    <useTestClasspath>false</useTestClasspath>
+                    <!-- optional if you want to add some extra directories into the classloader -->
+                    <additionalClasspathDirs>
+                        <additionalClasspathDir></additionalClasspathDir>
+                    </additionalClasspathDirs>
+                </configuration>
+                <!-- For any extra dependencies needed when running embedded Tomcat (not WAR dependencies) add them below -->
+                <dependencies>
+                    <dependency>
+                        <groupId>javax.faces</groupId>
+                        <artifactId>javax.faces-api</artifactId>
+                        <version>2.3</version>
+                    </dependency>
+                    <!-- https://mvnrepository.com/artifact/com.sun.faces/jsf-impl -->
+                    <dependency>
+                        <groupId>com.sun.faces</groupId>
+                        <artifactId>jsf-impl</artifactId>
+                        <version>2.2.17</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>javax.servlet</groupId>
+                        <artifactId>jstl</artifactId>
+                        <version>1.2</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+        </plugins>
+    </build>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>maven2-repository.dev.java.net</id>
+            <name>Java.net Repository for Maven</name>
+            <url>http://download.java.net/maven/glassfish/</url>
+        </pluginRepository>
+    </pluginRepositories>
+    <dependencies>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>7.0</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</project>
