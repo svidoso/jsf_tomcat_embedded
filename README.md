@@ -1,1 +1,4 @@
-# jsf_tomcat_embedded
+## Example maven project for tomcat embedded and java server faces
+
+### build & run
+    mvn tomcat7:run
