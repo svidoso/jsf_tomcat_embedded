@@ -9,7 +9,10 @@
   <h:form>
       <p>First name: #{userBean.firstName}</p>
       <p>Last name: #{userBean.lastName}</p>
-      <p><h:commandButton value="submit" /></p>
+      <p><h:commandButton id="mybutton" value="submit"
+                          binding="#{userBean.mybutton}"
+                          action="#{userBean.addConfirmedUser}"
+      /></p>
   </h:form>
 </h:body>
 </html>

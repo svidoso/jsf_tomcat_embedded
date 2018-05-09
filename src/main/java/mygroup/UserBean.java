@@ -20,6 +20,8 @@ public class UserBean implements Serializable {
     protected String sex = "Unknown";
     protected String email;
     protected String serviceLevel = "medium";
+
+    private UIComponent mybutton;
     
     public UserBean() {}
 
@@ -70,7 +72,15 @@ public class UserBean implements Serializable {
     public void setServiceLevel(String serviceLevel) {
         this.serviceLevel = serviceLevel;
     }
-    
+
+    public void setMybutton(UIComponent mybutton) {
+        this.mybutton = mybutton;
+    }
+
+    public UIComponent getMybutton() {
+        return mybutton;
+    }
+
     public void validateEmail(FacesContext context, UIComponent toValidate,
             Object value) throws ValidatorException {
         String emailStr = (String) value;
@@ -80,14 +90,14 @@ public class UserBean implements Serializable {
         }
     }
 
-    public String addConfirmedUser() {
+    public void addConfirmedUser() {
         // This method would call a database or other service and add the 
         // confirmed user information.
         // For now, we just place an informative message in request scope
         FacesMessage doneMessage = 
                 new FacesMessage("Successfully added new user");
-        FacesContext.getCurrentInstance().addMessage(null, doneMessage);
-        return "done";
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(mybutton.getClientId(context), doneMessage);
     }
 }
 
